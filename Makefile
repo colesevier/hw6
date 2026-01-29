@@ -6,7 +6,7 @@ GTESTLIBS := -lgtest -lgtest_main  -lpthread
 #DEFS=-DDEBUG
 
 
-all: ht-test str-hash-test hash-check boggle-driver 
+all: ht-test str-hash-test hash-check boggle-driver bench-ht
 
 boggle-driver: boggle.cpp boggle.h boggle-driver.cpp
 	$(CXX) $(CXXFLAGS) $(DEFS) boggle.cpp boggle-driver.cpp -o $@
@@ -20,8 +20,11 @@ str-hash-test: str-hash-test.cpp hash.h
 hash-check: hash-check.cpp hash.h
 	$(CXX) $(CXXFLAGS) $(DEFS) $(GTESTINCL) $< -o $@ $(GTESTLIBS)
 
+bench-ht: bench-ht.cpp ht.h hash.h
+	$(CXX) $(CXXFLAGS) $(DEFS) $< -o $@
+
 run-hash-check: hash-check
 	valgrind --tool=memcheck --leak-check=yes ./hash-check
 
 clean:
-	rm -f *~ *.o ht-test ht-perf str-hash-test hash-check boggle-driver
+	rm -f *~ *.o ht-test ht-perf str-hash-test hash-check boggle-driver bench-ht
