@@ -15,7 +15,7 @@ Design and systems takeaways
 
 How to build and run (macOS / Linux)
 ```bash
-cd hw6
+cd high-performance-string-search
 make
 ```
 
